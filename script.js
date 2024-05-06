@@ -5,8 +5,13 @@ const searchInput = document.querySelector(".search input");
 const searchButton = document.querySelector(".search button");
 const weatherIcon = document.querySelector(".weather-icon");
 
+
 async function checkWeather(city) {
-    const response = await fetch(apiUrl + city + `&appid=${apiKey}` + "&units=metric");
+    if (city == "") {
+
+    }
+    else {
+        const response = await fetch(apiUrl + city + `&appid=${apiKey}` + "&units=metric");
     if (response.status == 404) {
         document.querySelector(".error").style.display = "block";
         document.querySelector(".weather").style.display = "none";
@@ -39,12 +44,21 @@ async function checkWeather(city) {
         document.querySelector(".weather").style.display = "block";
         document.querySelector(".error").style.display = "none";
     }
+    }
+    
 }
 searchButton.addEventListener("click", () => {
     const city = searchInput.value;
     checkWeather(city);
 });
 
+searchInput.addEventListener("keypress", (event) => {
+    if (event.keyCode === 13) {
+      const city = searchInput.value;
+      checkWeather(city);
+    }
+  });
+  
 
 
 
